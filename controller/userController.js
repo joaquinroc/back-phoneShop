@@ -2,8 +2,9 @@ const userService = require("../services/userService");
 
 const userController = {
   createUser: async (req, res, next) => {
+    const { name, email } = req.body;
     try {
-      const user = await userService.createUser(req.body);
+      const user = await userService.createUser({ name, email });
       res.status(201).json(user);
     } catch (error) {
       next(error);

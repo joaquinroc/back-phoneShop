@@ -1,13 +1,15 @@
 const { DataTypes } = require("sequelize");
+const { v4: uuidv4 } = require("uuid");
 const sequelize = require("../database/db");
 
 const Phone = sequelize.define(
   "Phone",
   {
     id: {
-      type: DataTypes.INTEGER,
-      autoIncrement: true,
+      type: DataTypes.UUID,
+      defaultValue: uuidv4,
       primaryKey: true,
+      allowNull: false,
     },
     name: {
       type: DataTypes.STRING,
@@ -36,6 +38,13 @@ const Phone = sequelize.define(
   },
   {
     timestamps: true,
+  },
+  {
+    hooks: {
+      beforeCreate: (phone) => {
+        phone.id = uuidv4();
+      },
+    },
   }
 );
 

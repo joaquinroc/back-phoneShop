@@ -2,8 +2,16 @@ const phoneService = require("../services/phoneService");
 
 const phoneController = {
   createPhone: async (req, res, next) => {
+    const { name, brand, model, description, price, image } = req.body;
     try {
-      const phone = await phoneService.createPhone(req.body);
+      const phone = await phoneService.createPhone({
+        name,
+        brand,
+        model,
+        description,
+        price,
+        image,
+      });
       res.status(201).json(phone);
     } catch (error) {
       next(error);
