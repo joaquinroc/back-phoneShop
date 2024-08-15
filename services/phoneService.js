@@ -1,5 +1,4 @@
 const db = require("../models/phoneModels");
-const uuid = require("uuid");
 
 const phoneService = {
   getAllPhones: async () => {
@@ -10,6 +9,32 @@ const phoneService = {
     try {
       const newPHone = await db.create(data);
       return newPHone;
+    } catch (error) {
+      throw error;
+    }
+  },
+
+  getPhonesByBrands: async () => {
+    try {
+      const allBrands = await db.findAll({
+        attributes: ["brand"],
+        distinct: true,
+        group: ["brand"],
+      });
+      return allBrands;
+    } catch (error) {
+      throw error;
+    }
+  },
+
+  deletePhone: async (id) => {
+    try {
+      const deleteItem = await db.destroy({
+        where: {
+          id: id,
+        },
+      });
+      return deleteItem;
     } catch (error) {
       throw error;
     }

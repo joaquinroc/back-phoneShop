@@ -40,9 +40,22 @@ const phoneController = {
     }
   },
 
+  getPhonesBrands: async (req, res, next) => {
+    try {
+      const brands = await phoneService.getPhonesByBrands();
+      if (brands) {
+        res.json(brands);
+      } else {
+        res.status(404).send({ error: "Phone not found" });
+      }
+    } catch (error) {
+      next(error);
+    }
+  },
+
   deletePhone: async (req, res, next) => {
     try {
-      const success = await phoneService.deletePhone(parseInt(req.params.id));
+      const success = await phoneService.deletePhone(req.params.id);
       if (success) {
         res.status(204).send();
       } else {

@@ -4,11 +4,19 @@ const phoneRoutes = express.Router();
 const { createPhoneSchema } = require("../validation/phoneDto");
 const validateSchema = require("../middleware/phone-middleware");
 
-phoneRoutes.get("/article", phoneController.getAllPhones);
-phoneRoutes.get("/article/:id", phoneController.getPhoneById);
-phoneRoutes.delete("/article/:id", phoneController.deletePhone);
+phoneRoutes.get("/phone", phoneController.getAllPhones);
+phoneRoutes.get("/brand", phoneController.getPhonesBrands);
+phoneRoutes.delete(
+  "/phone/:id",
+  (req, res, next) => {
+    console.log("entry..");
+  },
+  phoneController.deletePhone
+);
+phoneRoutes.get("/phone/:id", phoneController.getPhoneById);
+
 phoneRoutes.post(
-  "/article",
+  "/phone",
   validateSchema(createPhoneSchema),
   phoneController.createPhone
 );
