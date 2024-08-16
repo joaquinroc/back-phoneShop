@@ -1,23 +1,6 @@
 const userService = require("../services/userService");
 
 const userController = {
-  createUser: async (req, res, next) => {
-    const { name, email, location, password } = req.body;
-    console.log(req.body);
-
-    try {
-      const user = await userService.createUser({
-        name,
-        email,
-        location,
-        password,
-      });
-      res.status(201).json(user);
-    } catch (error) {
-      next(error);
-    }
-  },
-
   getAllUsers: async (req, res, next) => {
     try {
       const users = await userService.getAllUsers();

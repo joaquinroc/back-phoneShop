@@ -27,9 +27,11 @@ const phoneController = {
     }
   },
 
-  getPhoneById: async (req, res, next) => {
+  getPhoneById: async (req, res) => {
+    const { id } = req.params;
+
     try {
-      const user = await phoneService.getPhoneById(parseInt(req.params.id));
+      const phone = await phoneService.getPhoneById(id);
       if (phone) {
         res.json(phone);
       } else {
@@ -53,9 +55,21 @@ const phoneController = {
     }
   },
 
-  deletePhone: async (req, res, next) => {
+  updatePhone: async (req, res) => {
     try {
-      const success = await phoneService.deletePhone(req.params.id);
+      const update = await phoneService.updatePhone(req.body);
+
+      return res.status(200).json(update);
+    } catch (error) {
+      return res.status(500).json({ message: error.message });
+    }
+  },
+
+  deletePhone: async (req, res, next) => {
+    const { id } = req.params;
+
+    try {
+      const success = await phoneService.deletePhone(id);
       if (success) {
         res.status(204).send();
       } else {
