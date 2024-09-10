@@ -19,7 +19,7 @@ const authController = {
 
   login: async (req, res, next) => {
     try {
-      const userLogin = await authService.login(req.body);
+      const userLogin = await authService.login(req, res);
       res.status(201).json(userLogin);
     } catch (error) {
       next(error);
